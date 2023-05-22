@@ -1,0 +1,74 @@
+{% extends 'index.html' %}
+
+{% block content %}
+    <style>
+        .content {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .brand-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 10px 10px 10px 10px;
+            background-color: #e9e9e9;
+            border-radius: 30px;
+            box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.1);
+            width: calc(100vw / 4 - 60px);
+            margin: 20px;
+        }
+
+        .brand-container p {
+            margin: 0;
+        }
+
+        .brand-container a {
+            text-decoration: none;
+            color: #102218;
+            margin-bottom: 15px;
+        }
+
+        .brand-logo {
+            max-height: 120px;
+            max-width: 220px;
+            margin: 20px;
+        }
+
+        .car-list {
+            margin: 5px;
+            padding: 0;
+            list-style: none;
+            text-align: center;
+        }
+
+        .car-list ul {
+            list-style: none;
+        }
+
+        .car-list li {
+            color: #102218;
+        }
+
+        .car-list a {
+            text-decoration: none;
+            color: #102218;
+        }
+    </style>
+    {% for brand in brands|dictsort:"name" %}
+        <div class="brand-container">
+            <a href='{% url 'mainapp:branddetail' brand.id %}'><img class="brand-logo" src="{{ brand.logo.url }}"></a>
+            <p>{{ brand.car_set.count }} cars</p>
+            <div class="car-list">
+                <ul class="car-list">
+                    {% for car in brand.car_set.all|slice:"10" %}
+                        <li><a href='{% url 'mainapp:cardetail' car.id %}'><strong>{{ car.model|slice:"20" }} - </strong>{{ car.year }}</a></li>
+                    {% empty %}
+                        <li>No cars found...</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <a href='{% url 'mainapp:branddetail' brand.id %}'>Go to brand page</a>
+        </div>
+    {% endfor %}
+{% endblock %}

@@ -1,0 +1,57 @@
+{% extends 'index.html' %}
+
+{% block content %}
+    <style>
+        .content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 92vh;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            padding: 10px 30px 25px 30px;
+            background-color: #102218;
+            border-radius: 20px;
+            box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.1);
+            margin: 20px;
+        }
+
+        h1 {
+            color: #08f075;
+            font-size: 26px;
+            font-weight: 500;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        button[type="submit"] {
+            background-color: #08f075;
+            border: none;
+            color: #fff;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            margin-top: 5px;
+            padding: 15px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #157944;
+        }
+    </style>
+    <form method="POST" action="{% url 'mainapp:logout' %}">
+        <h1>It's a goodbye ?</h1>
+        {% csrf_token %}
+        <button type="submit">Log out</button>
+    </form>
+    {% if user.is_superuser %}
+        <a href={% url 'admin:index' %}>Admin panel</a>
+        <a href={% url 'mainapp:savecars' %}>Save cars from joblib</a>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,84 @@
+{% extends 'index.html' %}
+
+{% block content %}
+    <style>
+        .content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 92vh;
+        }
+
+        form {
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            padding: 10px 30px 25px 30px;
+            background-color: #102218;
+            border-radius: 20px;
+            box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #08f075;
+            font-size: 26px;
+            font-weight: 500;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        input[type="text"], input[type="password"] {
+            background-color: #157944;
+            border: 0px solid #08f075;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 16px;
+            padding: 15px 20px;
+            margin-bottom: 20px;
+            width: 100%;
+        }
+
+        button[type="submit"] {
+            background-color: #08f075;
+            border: none;
+            color: #fff;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            margin-top: 5px;
+            padding: 15px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #157944;
+        }
+
+        form a {
+            color: #08f075;
+            text-decoration: none;
+            font-size: 14px;
+            margin-top: 10px;
+            text-align: center;
+        }
+    </style>
+    <form method="POST">
+        <h1>Welcome on Kidz Cars !</h1>
+	    {% csrf_token %}
+	    <div>
+            {{ register_form.username }}
+        </div>
+        <div>
+            {{ register_form.email }}
+        </div>
+        <div>
+            {{ register_form.password1 }}
+        </div>
+        <div>
+            {{ register_form.password2 }}
+        </div> 
+		<button type="submit">Register</button>
+        <a href={% url 'mainapp:login' %}>Log in instead</a>
+	</form>
+{% endblock %}

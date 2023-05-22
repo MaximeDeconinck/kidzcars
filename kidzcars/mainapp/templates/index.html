@@ -1,0 +1,58 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{% static 'index.css' %}" rel="stylesheet">
+    <title>Kidz Cars</title>
+</head>
+<nav>
+    <ul>
+        <li><a href="{% url 'mainapp:index' %}"><img src="{% static 'kidzcars.png' %}"></a></li>
+        <li><a href="{% url 'mainapp:carlist' %}">Car list</a></li>
+        {% if user.is_authenticated %}
+            <li><a href="{% url 'mainapp:newcar' %}">Add cars</a></li>
+            <li><a href="{% url 'mainapp:newbrand' %}">Add brands</a></li>
+        {% else %}
+            <li><a href="{% url 'mainapp:login' %}">Log in</a></li>
+            <li><a href="{% url 'mainapp:register' %}">Register</a></li>
+        {% endif %}
+    </ul>
+    <div class="profile">
+        {% if user.is_authenticated %}
+            <a href="{% url 'mainapp:profile' %}">{{ user.get_username }}</a>
+        {% endif %}
+    </div>
+</nav>
+{% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+<body>
+    <div class="content">
+        {% if request.path == '/' %}
+            <div class="explain">
+                <h1>The kidzcars project</h1>
+                <p>This site is part of my Web Programming class at Paris-Dauphine University, in Master MIAGE.</p>
+                <p>This site allow users to see a list of cars, sorted by brands. If the car you want to see isn't here, you can add it, or add a new brand. Most cars are from a childhood game, Gran Turismo 4 on PlayStation 2.</p>
+                <p>The framework used is Django, with 2 additional libraries : wikipedia, to get articles, and joblib, to add multiple cars at once.</p>
+                <p>Feel free to reuse the project for non-commercial use !</p>
+                <p><img src="{% static 'kidzcars.png' %}"></p>
+            </div>
+        {% else %}
+            {% block content %}
+            {% endblock %}
+        {% endif %}
+    </div>
+</body>
+<footer>
+    <a href="{% url 'mainapp:index' %}"><img src="{% static 'kidzcars.png' %}"></a>
+    -  @MaximeDeconinck, 2023
+</footer>
+</html>

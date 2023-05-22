@@ -1,0 +1,78 @@
+{% extends 'index.html' %}
+
+{% block content %}
+    <style>
+        .content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 92vh;
+        }
+
+        form {
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            padding: 10px 30px 25px 30px;
+            background-color: #102218;
+            border-radius: 20px;
+            box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .file {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        h1 {
+            color: #08f075;
+            font-size: 26px;
+            font-weight: 500;
+            margin-bottom: 15px;
+            margin-top: 15px;
+            text-align: center;
+        }
+
+        input[type="text"], input[type="password"] {
+            background-color: #157944;
+            border: 0px solid #08f075;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 16px;
+            padding: 15px 20px;
+            margin-bottom: 20px;
+            width: 100%;
+        }
+
+        button[type="submit"] {
+            background-color: #08f075;
+            border: none;
+            color: #fff;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            margin-top: 5px;
+            padding: 15px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #157944;
+        }
+    </style>
+    <form method="POST" enctype="multipart/form-data">
+        <h1>Add a new brand</h1>
+	    {% csrf_token %}
+	    <div>
+            {{ newbrand_form.name }}
+        </div>
+        <div>
+            {{ newbrand_form.year }}
+        </div>
+        <div class="file">
+            {{ newbrand_form.logo }}
+        </div>
+		<button type="submit">Add</button>
+	</form>
+{% endblock %}

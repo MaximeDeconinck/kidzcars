@@ -1,0 +1,75 @@
+{% extends 'index.html' %}
+
+{% block content %}
+    <style>
+        .content {
+            display: inline;
+            justify-content: center;
+            align-items: center;
+            min-height: 90vh;
+        }
+
+        .info {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 35px;
+            color: #102218;
+            margin: 20px 30px 10px 30px;
+        }
+
+        .info img {
+            height: 100px;
+            margin-right: 20px;
+        }
+
+        .info-car {
+            margin-left: 20px;
+            margin-right: auto;
+        }
+
+        .info-sec {
+            font-size: 16px;
+        }
+
+        .wikipedia {
+            margin: 0px 20px 0px 20px;
+            padding: 10px;
+            font-size: 14px;
+            text-align: justify;
+            line-height: 1.5;
+            color: #102218;
+        }
+
+        .wikipedia-link {
+            text-align: center;
+            margin: 10px;
+        }
+
+        .wikipedia-link a {
+            text-decoration: none;
+            color: #157944;
+        }
+
+        footer {
+            margin-top: 70vh;
+        }
+    </style>
+    <div class="info">
+        <a href='{% url 'mainapp:branddetail' car.brand.id %}'><img class="brand-logo" src="{{ car.brand.logo.url }}"></a>
+        <div class="info-car">
+            {{ car.brand.name }} {{ car.model }}
+            <div class="info-sec">
+                {{ car.year }} {{ car.generation }}
+            </div>
+        </div>
+    </div>
+    <div class="wikipedia">
+        {% autoescape off %}
+            {{ wikipedia_intro }}
+        {% endautoescape %}
+    </div>
+    <div class="wikipedia-link">
+        <a href="{{ wikipedia_url }}" target="_blank">Read more on Wikipedia</a>
+    </div>
+{% endblock %}
